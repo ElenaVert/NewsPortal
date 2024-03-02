@@ -1,0 +1,47 @@
+from news.models import -все модели- 
+1)
+user1 = User.objects.create_user('Иванов Иван Иванович')
+user2 = User.objects.create_user('Семенов Семен Семенович')
+
+2) 
+author1 = Author.objects.create(author = user1)
+author2 = Author.objects.create(author = user2)
+
+3)
+category1 = Category.objects.create(post_category = 'кино')
+category2 = Category.objects.create(post_category = 'театр') 
+category3 = Category.objects.create(post_category = 'литература')
+category4 = Category.objects.create(post_category = 'гастрономия')
+
+4)
+article1 = Post.objects.create(author_id = author1, type = 'ARL', headline = 'Луший фильм месяца', text = 'Лучшим фильмом месяца признан фильм Джеймса Кэмерона "Титаник". Много слов  Много слов  Много слов  Много слов  Много слов')
+
+article2 = Post.objects.create(author_id = author2, type = 'ARL', headline = 'Луший спектакль месяца', text = 'Лучшим спектаклем месяца признан спектакль "Анна Каренина" постановки того-то того-то. Много слов  Много слов  Много слов  Много слов  Много слов')
+
+post1 = Post.objects.create(author_id = author1, type = 'PST', headline = 'Луший ресторан месяца', text = 'Лучшим рестораном месяца признан ресторан пяти звезд "Золотая вобла". Много слов  Много слов  Много слов  Много слов  Много слов')
+
+5) article1category = PostCategory.objects.create(postcat_to_post = article1, postcat_to_category = category1)
+
+article2category = PostCategory.objects.create(postcat_to_post = article2, postcat_to_category = category2)
+
+post1category = PostCategory.objects.create(postcat_to_post = post1, postcat_to_category = category3)
+
+6)comment1 = Comment.objects.create(comment_to_post = article1, comment_to_user = user1, comment_text = 'Очень крутая статья!') 
+
+comment2 = Comment.objects.create(comment_to_post = article2, comment_to_user = user2, comment_text = 'Очень плохая статья!')
+
+comment3 = Comment.objects.create(comment_to_post = post1, comment_to_user = user2, comment_text = 'Очень хорошая новость!')
+
+9) 
+Author.objects.order_by('rating').values_list('user__username','rating').first()
+
+10) 
+post_best = Post.objects.order_by('-rating').first()
+post_best.some_datatime
+post_best.author.user.username
+post_best.rating
+post_best.title
+post_best.preview()
+
+11) 
+comments = Comment.objects.filter(post=post_best).values_list('some_datatime', 'user__username', 'rating', 'text')
